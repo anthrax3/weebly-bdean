@@ -11,8 +11,8 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
 const WeeblyMiddleware = require('./middleware/weebly.js');
-const oauthRouter = require('./app/oauth-router.js');
-const webhooksRouter = require('./app/webhooks-router.js');
+const oauthRouter = require('./controllers/oauth-router.js');
+const webhooksRouter = require('./controllers/webhooks-router.js');
 // TODO: INCLUDE A NEW FETCH USER CONTROLLER TO HANDLE POPULATING THE WEBHOOK
 
 const index = require('./routes/index');
