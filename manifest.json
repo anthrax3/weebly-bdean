@@ -1,0 +1,52 @@
+{
+    "manifest": "1",
+    "client_id": "465279841",
+    "version": "1.0.1",
+    "callback_url": "https://weebly-devrel-interview.herokuapp.com/oauth/phase-one",
+    "scopes": [
+        "read:user",
+        "read:site"
+    ],
+    "locale": {
+        "default": "en-us",
+        "supported": ["en-us"]
+    },
+    "oauth_final_destination": "dashboard_card-devrel_interview",
+    "webhooks": {
+        "callback_url": "https://weebly-devrel-interview.herokuapp.com/webhooks/callback",
+        "events": ["user.update","site.publish", "site.delete", "app.uninstall", "dashboard.card.update"]
+    },
+    "dashboard_cards": [
+        {
+            "name": "devrel-interview",
+            "version": "1.0.1",
+            "label": "User Summary",
+            "icon": "assets/icon.svg",
+            "link": "https://weebly-devrel-interview.herokuapp.com/setup/:jwt",
+            "default": [
+                {
+                    "type": "text",
+                    "title": "weeblyclouduser@weebly.com",
+                    "value": "User ID: 1234567"
+                },
+                {
+                "type": "group",
+                "label": "Sites",
+                "components": [{
+                    "type": "link",
+                    "label": "A published site",
+                    "value": "Published",
+                    "description": "mysitedomain.com",
+                    "link": "https://weebly-devrel-inteview.herokuapp.com"
+                },
+                {
+                    "type": "link",
+                    "label": "An unpublished site",
+                    "description": "mysitedomain.com",
+                    "link": "https://weebly-devrel-inteview.herokuapp.com"
+                }]
+                }
+            ]
+        }
+    ]
+}
