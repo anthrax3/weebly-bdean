@@ -67,13 +67,15 @@ router.get('/phase-one', function(req, res) {
  */
 router.get('/phase-two', function(req, res) {
 	console.log(`\nPhase two of redirect has been initiated\n`);
+	console.log(`\nClient ID on req.app.clientId: ${req.app.clientId}\n`);
+	console.log(`\nClient Secret on req.app.secretKey: ${req.app.secretKey}\n`);
 	const clientId = req.app.clientId;
 	const secretKey = req.app.secretKey;
 	let accessToken;
 
     // we have our authorization code.
     // now we make a request toe xchange it for a token.
-	needle.post(req.query.callback_url, {
+	needle.post(querystring.unescape(req.query.callback_url), {
 		client_id: clientId,
 		client_secret: secretKey,
 		authorization_code: req.query.authorization_code
