@@ -43,8 +43,8 @@ router.post('/callback', function(req, res) {
 
 	console.log('Messages: ', messages);
 	if(req.body.data) {
-		let data = JSON.parse(req.body.data);
-		console.log('PARSED DATA: ', data);
+		let data = JSON.parse(req.body);
+		console.log('PARSED BODY: ', data);
 		if('dashboard.card.update' === data.event) {
 			let userId = data.user_id;
 			let siteId = data.site_id;

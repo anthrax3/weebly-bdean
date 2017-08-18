@@ -16,6 +16,7 @@ const resellerClientSecret   = process.env.WEEBLY_CLOUD_API_SECRET;
 const resellerUserId         = process.env.WEEBLY_CLOUD_API_USER_ID;
 
 Reseller.getUser = function (cb) {
+	console.log('Inside Reseller.getUser()');
 	// Generate hash for the API
     let hash = Utility.generateHmac('GET' + '\n' + 'user/' + resellerUserId + '\n', resellerClientSecret)
     // Configure request object
