@@ -85,11 +85,9 @@ router.get('/phase-two', function(req, res) {
 		// we have the token. you can store this wherever
 		accessToken = payload.access_token;
 
-		let message = `\nAccess token: ${payload.access_token}\n`;
+		console.log(`\nAccess token: ${payload.access_token}\n`);
 
-		console.log(message);
-
-		//console.log('Payload.callback_url: ', payload.callback_url);
+		console.log(`\nPayload.callback_url: ${payload.callback_url}\n`);
 		res.redirect(payload.callback_url);
 	});
 });
