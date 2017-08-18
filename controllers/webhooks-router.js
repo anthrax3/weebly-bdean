@@ -11,7 +11,7 @@ const Card = require('./card');
  * Callback URL as specified in `manifest.json`
  */
 router.post('/callback', function(req, res) {
-	console.log(`\nreq.app.token: ${req.app.token}\n`);
+	//console.log(`\nreq.app.token: ${req.app.token}\n`);
 	let comparisonObject = {
 		'client_id': req.body.client_id,
 		'client_version': req.body.client_version,
@@ -39,6 +39,10 @@ router.post('/callback', function(req, res) {
 	messages.push(`Data: ${JSON.stringify(req.body, null, 2)}`);
 
 	messages.push("\n");
+
+	if('dashboard.update.card' === req.body.data.event) {
+		messages.push(`\nReceived update dashboard card event, ${req.body.data}\n`);
+	}
 
 	let message = messages.join("\n");
 
