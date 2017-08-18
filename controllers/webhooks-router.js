@@ -42,35 +42,7 @@ router.post('/callback', function(req, res) {
 	let message = messages.join("\n");
 
 	console.log('Messages: ', messages);
-	if(req.body) {
-		let data = JSON.parse(req.body);
-		console.log('PARSED BODY: ', data);
-		/*
-		if('dashboard.card.update' === data.event) {
-			let userId = data.user_id;
-			let siteId = data.site_id;
-			let cardId = data.platform_dashboard_card_id;
-			let rUser = Reseller.getUser(function(err, data) {
-				if(err) {
-					console.error(err, data);
-				} else {
-					console.log(data);
-					Card.update(data, req.app.token, userId, siteId, cardId, function(err, result) {
-						if( err ) {
-							console.error('Failed to update card with user data: ', err);
-						} else {
-							console.log('Card updated with user data!', data);
-							res.status(200).send(message);
-						}
-					});
-				}
-			});
-		}
-		*/
-							res.status(200).send(message);
-	} else {
-		res.status(200).send(message);
-	}
+	res.status(200).send(message);
 
 });
 

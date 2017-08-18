@@ -42,16 +42,6 @@ router.get('/phase-one', function(req, res) {
 		return res.status(500).send(message);
 	}
 
-	/** Cannot write to files in Heroku
-    fs.appendFile(
-        path.resolve(__dirname + '/../messages/messages.txt'),
-        `\nA new installation for user id ${req.query.user_id}, site id ${req.query.site_id} has been initalized.\n`,
-        function(error) {
-            console.error(error);
-        }
-    );
-	**/
-
 	console.log(`\nA new installation for user id ${req.query.user_id}, site id ${req.query.site_id} has been initialized.\n`);
 
     // if we've reached this point, that means we're set. make a request to start the authorization process
@@ -95,7 +85,7 @@ router.get('/phase-two', function(req, res) {
 		console.log(payload.access_token);
 
 		// Store token as app var on request
-		req.app.token = payload.access_token;
+		//req.app.token = payload.access_token;
 
 		let message = `\nAccess token: ${payload.access_token}\n`;
 
