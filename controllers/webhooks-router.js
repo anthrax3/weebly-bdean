@@ -42,9 +42,10 @@ router.post('/callback', function(req, res) {
 	let message = messages.join("\n");
 
 	console.log('Messages: ', messages);
-	if(req.body.data) {
+	if(req.body) {
 		let data = JSON.parse(req.body);
 		console.log('PARSED BODY: ', data);
+		/*
 		if('dashboard.card.update' === data.event) {
 			let userId = data.user_id;
 			let siteId = data.site_id;
@@ -65,6 +66,8 @@ router.post('/callback', function(req, res) {
 				}
 			});
 		}
+		*/
+							res.status(200).send(message);
 	} else {
 		res.status(200).send(message);
 	}
