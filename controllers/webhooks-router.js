@@ -44,6 +44,9 @@ router.post('/callback', function(req, res) {
 	if('dashboard.card.update' === req.body['event']) {
 		messages.push(`Received update dashboard card evt: ${req.body.data}`);
 		messages.push("\n");
+
+		// TODO: GET Reseller User and Site Data
+		// TODO: PATCH Card Data
 	}
 
 	let message = messages.join("\n");

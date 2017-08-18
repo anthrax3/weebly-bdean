@@ -15,7 +15,6 @@ const weeblyAPI  = process.env.MY_API_BASE_URI;
 const clientId   = process.env.MY_CLIENT_ID;
 const secretKey  = process.env.MY_CLIENT_SECRET;
 
-// TODO: Needs, userData, token data
 Card.populateCard = function (userData, token, userId, siteId, cardId, cb) {
 
     let cardData = [
