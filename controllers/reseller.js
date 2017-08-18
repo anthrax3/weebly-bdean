@@ -23,10 +23,10 @@ Reseller.getUser = function (cb) {
         method: 'GET',
         url: resellerAPI + 'user/' + resellerUserId,
         headers: {
-            X-Public-Key: this.resellerClientId,
-            X-Signed-Request-Hash: hash,
-            Content-Type: 'application/json',
-            Accepts: 'application/json'
+            'X-Public-Key': resellerClientId,
+            'X-Signed-Request-Hash': hash,
+            'Content-Type': 'application/json',
+            'Accepts': 'application/json'
         },
     };
 
