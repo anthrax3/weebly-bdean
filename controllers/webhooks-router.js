@@ -11,6 +11,7 @@ const Card = require('./card');
  * Callback URL as specified in `manifest.json`
  */
 router.post('/callback', function(req, res) {
+	console.log(`\nreq.app.token: ${req.app.token}\n`);
 	let comparisonObject = {
 		'client_id': req.body.client_id,
 		'client_version': req.body.client_version,

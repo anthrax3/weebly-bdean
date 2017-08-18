@@ -67,8 +67,8 @@ router.get('/phase-one', function(req, res) {
  */
 router.get('/phase-two', function(req, res) {
 	console.log(`\nPhase two of redirect has been initiated\n`);
-	console.log(`Client ID on req.app.clientId: ${req.app.clientId}\n`);
-	console.log(`Client Secret on req.app.secretKey: ${req.app.secretKey}\n`);
+	//console.log(`Client ID on req.app.clientId: ${req.app.clientId}\n`);
+	//console.log(`Client Secret on req.app.secretKey: ${req.app.secretKey}\n`);
 	const clientId = req.app.clientId;
 	const secretKey = req.app.secretKey;
 	let accessToken;
@@ -81,21 +81,20 @@ router.get('/phase-two', function(req, res) {
 		authorization_code: req.query.authorization_code
 	}, function(error, response) {
 		console.log(`Inside needle callback`);
-		if(response) {
-			let payload = JSON.parse(response.body);
-
-			// we have the token. you can store this wherever
-			accessToken = payload.access_token;
-
-			console.log(`\nAccess token: ${payload.access_token}`);
-
-			console.log(`\nPayload.callback_url: ${payload.callback_url}`);
-			res.redirect(payload.callback_url);
-		}
 		if (error) {
 			console.error(`\nPhase two failure: ${error}`);
 			return res.status(500).send('failed');
 		}
+
+		let payload = JSON.parse(response.body);
+
+		// we have the token. you can store this wherever
+		req.app.token = payload.access_token;
+
+		console.log(`\nAccess token: ${payload.access_token}`);
+
+		console.log(`\nPayload.callback_url: ${payload.callback_url}`);
+		res.redirect(payload.callback_url);
 	});
 });
 
