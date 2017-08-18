@@ -67,30 +67,35 @@ router.get('/phase-one', function(req, res) {
  */
 router.get('/phase-two', function(req, res) {
 	console.log(`\nPhase two of redirect has been initiated\n`);
-	console.log(`\nClient ID on req.app.clientId: ${req.app.clientId}\n`);
-	console.log(`\nClient Secret on req.app.secretKey: ${req.app.secretKey}\n`);
+	console.log(`Client ID on req.app.clientId: ${req.app.clientId}\n`);
+	console.log(`Client Secret on req.app.secretKey: ${req.app.secretKey}\n`);
 	const clientId = req.app.clientId;
 	const secretKey = req.app.secretKey;
 	let accessToken;
 
     // we have our authorization code.
     // now we make a request toe xchange it for a token.
-	needle.post(querystring.unescape(req.query.callback_url), {
+	needle.post(req.query.callback_url, {
 		client_id: clientId,
 		client_secret: secretKey,
 		authorization_code: req.query.authorization_code
 	}, function(error, response) {
-		if (error) return res.status(500).send('failed');
+		console.log(`Inside needle callback`);
+		if(response) {
+			let payload = JSON.parse(response.body);
 
-		let payload = JSON.parse(response.body);
+			// we have the token. you can store this wherever
+			accessToken = payload.access_token;
 
-		// we have the token. you can store this wherever
-		accessToken = payload.access_token;
+			console.log(`\nAccess token: ${payload.access_token}`);
 
-		console.log(`\nAccess token: ${payload.access_token}\n`);
-
-		console.log(`\nPayload.callback_url: ${payload.callback_url}\n`);
-		res.redirect(payload.callback_url);
+			console.log(`\nPayload.callback_url: ${payload.callback_url}`);
+			res.redirect(payload.callback_url);
+		}
+		if (error) {
+			console.error(`\nPhase two failure: ${error}`);
+			return res.status(500).send('failed');
+		}
 	});
 });
 
