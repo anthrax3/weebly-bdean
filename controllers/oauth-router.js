@@ -66,7 +66,7 @@ router.get('/phase-one', function(req, res) {
  * Secondary OAuth endpoint as specified by `phaseTwoLink` in the phase one endpoint
  */
 router.get('/phase-two', function(req, res) {
-	console.log('Phase two of redirect has been initiated');
+	console.log(`\nPhase two of redirect has been initiated\n`);
 	const clientId = req.app.clientId;
 	const secretKey = req.app.secretKey;
 	let accessToken;
@@ -83,14 +83,13 @@ router.get('/phase-two', function(req, res) {
 		let payload = JSON.parse(response.body);
 
 		// we have the token. you can store this wherever
-		console.log('ACCESS TOKEN: ', payload.access_token);
 		accessToken = payload.access_token;
 
 		let message = `\nAccess token: ${payload.access_token}\n`;
 
 		console.log(message);
 
-		console.log('Payload.callback_url: ', payload.callback_url);
+		//console.log('Payload.callback_url: ', payload.callback_url);
 		res.redirect(payload.callback_url);
 	});
 });
