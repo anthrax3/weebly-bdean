@@ -69,6 +69,7 @@ router.get('/phase-two', function(req, res) {
 	console.log('Phase two of redirect has been initiated');
 	const clientId = req.app.clientId;
 	const secretKey = req.app.secretKey;
+	let accessToken;
 
     // we have our authorization code.
     // now we make a request toe xchange it for a token.
@@ -82,22 +83,11 @@ router.get('/phase-two', function(req, res) {
 		let payload = JSON.parse(response.body);
 
 		// we have the token. you can store this wherever
-		console.log(payload.access_token);
-
-		// Store token as app var on request
-		//req.app.token = payload.access_token;
+		console.log('ACCESS TOKEN: ', payload.access_token);
+		accessToken = payload.access_token;
 
 		let message = `\nAccess token: ${payload.access_token}\n`;
 
-		/** Cannot write files on Heroku
-		fs.appendFile(
-			path.resolve(__dirname + '/../messages/messages.txt'),
-			message,
-			function(error) {
-				console.error(error);
-			}
-		);
-		**/
 		console.log(message);
 
 		console.log('Payload.callback_url: ', payload.callback_url);
