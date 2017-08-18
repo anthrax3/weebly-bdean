@@ -15,16 +15,41 @@ const weeblyAPI  = process.env.MY_API_BASE_URI;
 const clientId   = process.env.MY_CLIENT_ID;
 const secretKey  = process.env.MY_CLIENT_SECRET;
 
-Card.populateCard = function (userData, token, userId, siteId, cardId, cb) {
+Card.populateCard = function (token, userId, siteId, cardId, userEmail, testModeState, loginLink, sites, cb) {
 
     let cardData = [
+        {
+            "type": "text",
+            "title": userEmail,
+            "value": "User ID: " + userId
+        },
     ];
+
+    let siteList = {
+        "type": "group",
+        "label": "Sites",
+        "components": []
+    };
+
+    for(let i = 0; i < sites.length; i++) {
+        let siteObj = {
+            type: "link",
+            label: sites[i].title,
+            description: sites[i].domain,
+            link: sites[i].link
+        };
+        if(sites[i].publish_state) siteObj.value = "Published"
+        siteList.components.push(siteObj);
+    }
+
+    cardData.push(siteList);
 
     let hash = Utility.generateHmac('PATCH' + '\n' + 'user/' + siteId + '\n' + JSON.stringify(cardData), secretKey)
     let payload = {
         card_id: cardId,
-        data: [
-        ]
+        data: cardData,
+        site_id: siteId,
+        user_id: user
     };
     let reqOpts = {
         method: 'PATCH',

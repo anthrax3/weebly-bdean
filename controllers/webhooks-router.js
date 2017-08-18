@@ -45,8 +45,26 @@ router.post('/callback', function(req, res) {
 		messages.push(`Received update dashboard card evt: ${req.body.data}`);
 		messages.push("\n");
 
-		// TODO: GET Reseller User and Site Data
-		// TODO: PATCH Card Data
+
+		Reseller.getUser(function(err, data) {
+			if(err) {
+				console.error(err, data);
+			} else {
+				//console.log('User Data: ', user);
+				/*
+				Card.populateCard(req.app.token, userId, siteId, cardId, testModeState, loginLink, function(err, data) {
+					
+				});
+				*/
+				res.render('reseller', {
+					title: 'Manage Reseller User',
+					resellerId: '',
+					resellerTestMode: data.test_mode,
+					resellerEmail: data.email, 
+					resellerLanguage: data.language 
+				});
+			}
+		});
 	}
 
 	let message = messages.join("\n");
