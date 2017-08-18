@@ -94,6 +94,9 @@ router.get('/phase-two', function(req, res) {
 		// we have the token. you can store this wherever
 		console.log(payload.access_token);
 
+		// Store token as app var on request
+		req.app.token = payload.access_token;
+
 		let message = `\nAccess token: ${payload.access_token}\n`;
 
 		/** Cannot write files on Heroku

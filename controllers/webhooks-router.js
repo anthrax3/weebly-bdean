@@ -54,7 +54,7 @@ router.post('/callback', function(req, res) {
 					console.error(err, data);
 				} else {
 					console.log(data);
-					Card.update(data, token, userId, siteId, cardId, function(err, result) {
+					Card.update(data, req.app.token, userId, siteId, cardId, function(err, result) {
 						if( err ) {
 							console.error('Failed to update card with user data: ', err);
 						} else {

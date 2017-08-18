@@ -31,9 +31,9 @@ Card.populateCard = function (userData, token, userId, siteId, cardId, cb) {
         method: 'GET',
         url: this.weeblyAPI + 'user/sites/' + siteId + '/cards/' + cardId,
         headers: [
-            X-Weebly-Access-Token: 
-            Content-Type: 'application/json',
-            Accepts: 'application/json'
+            'X-Weebly-Access-Token': token,
+            'Content-Type': 'application/json',
+            'Accepts': 'application/json'
         ],
     };
 
