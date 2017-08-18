@@ -28,13 +28,13 @@ Card.populateCard = function (userData, token, userId, siteId, cardId, cb) {
         ]
     };
     let reqOpts = {
-        method: 'GET',
+        method: 'PATCH',
         url: this.weeblyAPI + 'user/sites/' + siteId + '/cards/' + cardId,
-        headers: [
+        headers: {
             'X-Weebly-Access-Token': token,
             'Content-Type': 'application/json',
             'Accepts': 'application/json'
-        ],
+        },
     };
 
     // Execute the request to update the card
