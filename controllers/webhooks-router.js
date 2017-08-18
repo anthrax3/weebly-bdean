@@ -40,7 +40,7 @@ router.post('/callback', function(req, res) {
 
 	messages.push("\n");
 
-	if('dashboard.update.card' === req.body.data.event) {
+	if('dashboard.update.card' === req.body.event) {
 		messages.push(`\nReceived update dashboard card event, ${req.body.data}\n`);
 	}
 
