@@ -22,12 +22,12 @@ Reseller.getUser = function (cb) {
     let reqOpts = {
         method: 'GET',
         url: resellerAPI + 'user/' + resellerUserId,
-        headers: [
+        headers: {
             X-Public-Key: this.resellerClientId,
             X-Signed-Request-Hash: hash,
             Content-Type: 'application/json',
             Accepts: 'application/json'
-        ],
+        },
     };
 
     // GET reseller user
