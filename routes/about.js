@@ -3,8 +3,8 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', {
-    title: 'Benjamin Dean\'s Interview Project',
+  res.render('about', {
+    title: 'Who is Tyler Durden?',
     companyName: 'Weebly',
     candidateName: 'Benjamin Dean',
     projectName: 'Developer Advocate',

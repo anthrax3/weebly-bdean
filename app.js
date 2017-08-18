@@ -16,6 +16,12 @@ const webhooksRouter = require('./controllers/webhooks-router.js');
 // TODO: INCLUDE A NEW FETCH USER CONTROLLER TO HANDLE POPULATING THE WEBHOOK
 
 const index = require('./routes/index');
+const about = require('./routes/about');
+const contact = require('./routes/contact');
+const reseller = require('./routes/reseller');
+const challenges = require('./routes/challenges');
+const opportunities = require('./routes/opportunities');
+const reflection = require('./routes/reflection');
 
 const app = express();
 
@@ -32,6 +38,12 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/about', about);
+app.use('/contact', contact);
+app.use('/reseller', reseller);
+app.use('/challenges', challenges);
+app.use('/opportunities', opportunities);
+app.use('/reflection', reflection);
 
 /**
  * Set and create a new instance of WeeblyMiddleware.
