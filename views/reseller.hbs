@@ -13,8 +13,24 @@
     <div class="col-md-2">
     </div>
     <div class="col-md-8">
-      <h2>Manage Reseller User</h2>
-      <div style="color: red; padding: 2em; border: 2px solid #ccc;"><strong>REPLACE WITH UI CODE</strong></div>
+        <div class="panel panel-default">
+            <!-- Default panel contents -->
+            <div class="panel-heading">Reseller ID: {{resellerID}} - <a href="mailto:{{resellerEmail}}">{{resellerEmail}}</a> - Lang: {{resellerLanguage}}</div>
+            <div class="panel-body">
+                Test Mode: <a href="/resellerToggle">{{resellerTestModeState}}</a>
+                <br />
+                <a href="{{resellerLoginLink}}">Login As User</a>
+            </div>
+
+            <!-- List group -->
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <div>Name: {{siteName}} - Domain: {{siteDomain}} - ID: {{siteId}}</div>
+                </li>
+            </ul>
+        </div>
+
+      </div>
    </div>
     <div class="col-md-2">
     </div>
