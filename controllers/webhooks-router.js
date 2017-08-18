@@ -28,20 +28,22 @@ router.post('/callback', function(req, res) {
 
     // validate the hmac to see if its correct
 	if (!Utility.validateHmac(req.body.hmac, comparisonString, req.app.secretKey)) {
-		messages.push(`A new webhook was received, but it's calculated hmac didn't match what was passed.`);
+		messages.push(`Fresh webhook was received, but the calculated hmac does not match what was passed.`);
 		messages.push(`Expected ${req.body.hmac}`);
 		messages.push(`Calculated ${Utility.generateHmac(comparisonString)}`);
 	} else {
-		messages.push('A new webhook was recieved:');
+		messages.push('A fresh webhook was recieved:');
 	}
 
+	//{\n  "client_id": "465279841",\n  "client_version": "1.0.1",\n  "event": "dashboard.card.update",\n  "timestamp": 1503029424,\n  "data": {\n    "user_id": "108919051",\n    "site_id": "247763368794122525",\n    "platform_app_id": "465279841",\n    "platform_dashboard_card_id": "528166133822187070",\n    "platform_dashboard_card_version": "1.0.1",\n    "name": "devrel-interview",\n    "language": "en"\n  },\n  "hmac": "832035fade569f7a28ff27fcd16556d74d4e02cc396bcf3692ebd6727376f142"\n}
 	messages.push(`Headers: ${JSON.stringify(req.headers, null, 2)}`);
 	messages.push(`Data: ${JSON.stringify(req.body, null, 2)}`);
 
 	messages.push("\n");
 
-	if('dashboard.update.card' === req.body.event) {
-		messages.push(`\nReceived update dashboard card event, ${req.body.data}\n`);
+	if('dashboard.card.update' === req.body['event']) {
+		messages.push(`Received update dashboard card evt: ${req.body.data}`);
+		messages.push("\n");
 	}
 
 	let message = messages.join("\n");
