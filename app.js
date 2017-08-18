@@ -54,6 +54,8 @@ const wMiddleware = new WeeblyMiddleware({
  */
 app.use('/oauth', wMiddleware, oauthRouter);
 app.use('/webhooks', wMiddleware, webhooksRouter);
+// TODO: INCLUDE RESLLER CONTROLLER (similar to weebly mware, loads environment vars for reseller account)
+// EXAMPLE: app.use('/reseller', rMiddleware, resellerRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

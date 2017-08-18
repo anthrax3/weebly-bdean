@@ -4,6 +4,7 @@ const router = require('express').Router();
 const fs = require('fs');
 const path = require('path');
 const Utility = require('./utility');
+const Reseller = require('./reseller');
 
 /**
  * Callback URL as specified in `manifest.json`
@@ -39,18 +40,55 @@ router.post('/callback', function(req, res) {
 
 	let message = messages.join("\n");
 
-	/** Cannot write to files on Heroku
-	fs.appendFile(
-		path.resolve(__dirname + '/../messages/messages.txt'),
-		message,
-		function(err) {
-			console.error(err);
-		}
-	);
-	**/
 	console.log('Messages: ', messages);
 
-	res.status(200).send(message);
+	// Evaluate event data, if it is a dashboard.update.card event, need to trigger the reseller-router
+    /** Live example of dashboard.update.card event
+    {
+        "client_id": "465279841",
+        "client_version": "1.0.1",
+        "event": "dashboard.card.update",
+        "timestamp": 1503012759,
+        "data": {
+            "user_id": "108919051",
+            "site_id": "247763368794122525",
+            "platform_app_id": "465279841",
+            "platform_dashboard_card_id": "528166133822187070",
+            "platform_dashboard_card_version": "1.0.1",
+            "name": "devrel-interview",
+            "language": "en"
+        },
+        "hmac": "57391a92b4a6e33ad91bb82df25f6dda865e247be9632c0555dadba4299a689d"
+    }',
+    **/
+
+	if(req.body.data) {
+		let data = JSON.parse(req.body.data);
+		console.log('PARSED DATA: ', data);
+		if('dashboard.card.update' === data.event) {
+			let userId = data.user_id;
+			let siteId = data.site_id;
+			let cardId = data.platform_dashboard_card_id;
+			let rUser = Reseller.getUser(function(err, data) {
+				if(err) {
+					console.error(err, data);
+				} else {
+					console.log(data);
+					Card.update(data, token, userId, siteId, cardId, function(err, result) {
+						if( err ) {
+							console.error('Failed to update card with user data: ', err);
+						} else {
+							console.log('Card updated with user data!', data);
+							res.status(200).send(message);
+						}
+					});
+				}
+			});
+		}
+	} else {
+		res.status(200).send(message);
+	}
+
 });
 
 /**
